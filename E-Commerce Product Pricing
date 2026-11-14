@@ -1,0 +1,82 @@
+
+import java.util.Scanner;
+
+class Product {
+    int productId;
+    String productName;
+    double price;
+
+    public Product(int productId, String productName, double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+    }
+
+    public double calculateDiscount() {
+        return 0.0;
+    }
+}
+
+class ElectronicsProduct extends Product {
+    public ElectronicsProduct(int productId, String productName, double price) {
+        super(productId, productName, price);
+    }
+
+    @Override
+    public double calculateDiscount() {
+        return price * 12 / 100;
+    }
+}
+
+class ClothingProduct extends Product {
+    public ClothingProduct(int productId, String productName, double price) {
+        super(productId, productName, price);
+    }
+
+    @Override
+    public double calculateDiscount() {
+        return price * 20 / 100;
+    }
+}
+
+class GroceryProduct extends Product {
+    public GroceryProduct(int productId, String productName, double price) {
+        super(productId, productName, price);
+    }
+
+    @Override
+    public double calculateDiscount() {
+        return price * 5 / 100;
+    }
+}
+
+public class EcommerceProductPricing {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int type = sc.nextInt();
+        int id = sc.nextInt();
+        String name = sc.next();
+        double price = sc.nextDouble();
+
+        Product p;
+
+        if (type == 1) {
+            p = new ElectronicsProduct(id, name, price);
+        } else if (type == 2) {
+            p = new ClothingProduct(id, name, price);
+        } else {
+            p = new GroceryProduct(id, name, price);
+        }
+
+        double discount = p.calculateDiscount();
+        double finalPrice = price - discount;
+
+        System.out.println("Product ID: " + p.productId);
+        System.out.println("Product Name: " + p.productName);
+        System.out.printf("Discount: %.2f%n", discount);
+        System.out.printf("Final Price: %.2f%n", finalPrice);
+
+        sc.close();
+    }
+}
