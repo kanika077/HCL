@@ -1,0 +1,58 @@
+
+import java.util.Scanner;
+
+// Interface
+interface Payment {
+    double calculateFee(double amount);
+}
+
+// Implementation 1
+class CreditCardPayment implements Payment {
+    public double calculateFee(double amount) {
+        return amount * 2 / 100; // 2% fee
+    }
+}
+
+// Implementation 2
+class UpiPayment implements Payment {
+    public double calculateFee(double amount) {
+        return amount * 0.5 / 100; // 0.5% fee
+    }
+}
+
+// Implementation 3
+class WalletPayment implements Payment {
+    public double calculateFee(double amount) {
+        return amount * 1 / 100; // 1% fee
+    }
+}
+
+// Main class
+public class OnlinePaymentProcessing {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int type = sc.nextInt();
+        double amount = sc.nextDouble();
+
+        // Interface reference
+        Payment p;
+
+        if (type == 1) {
+            p = new CreditCardPayment();
+        } else if (type == 2) {
+            p = new UpiPayment();
+        } else {
+            p = new WalletPayment();
+        }
+
+        double fee = p.calculateFee(amount);
+        double finalAmount = amount + fee;
+
+        System.out.println("Payment Amount: " + String.format("%.2f", amount));
+        System.out.println("Transaction Fee: " + String.format("%.2f", fee));
+        System.out.println("Final Amount: " + String.format("%.2f", finalAmount));
+
+        sc.close();
+    }
+}
